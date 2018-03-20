@@ -21,11 +21,11 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
-Blog.create({
-	title: "test",
-	image: "https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/dreamstime-24497029-DK-RF_kf4e1q.jpg",
-	body: "blog body"
-});
+// Blog.create({
+// 	title: "test",
+// 	image: "https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/dreamstime-24497029-DK-RF_kf4e1q.jpg",
+// 	body: "blog body"
+// });
 
 // ===================================
 app.get("/", function(req, res) {
@@ -33,7 +33,13 @@ app.get("/", function(req, res) {
 });
 
 app.get("/blogs", function(req, res) {
-	res.render("index");
+	Blog.find({}, function(err, blogs) {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("index", {blogs: blogs});
+		}
+	})
 });
 
 
