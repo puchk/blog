@@ -48,6 +48,17 @@ app.post("/blogs", function(req, res) {
 	});
 });
 
+// Show Route
+app.get("/blogs/:id", function(req, res) {
+	Blog.findById(req.params.id, function(err, blog) {
+		if(err) {
+			res.redirect("/blogs")
+		} else {
+			res.render("show", {blog: blog});
+		}
+	});
+});
+
 
 app.get("/blogs", function(req, res) {
 	Blog.find({}, function(err, blogs) {
